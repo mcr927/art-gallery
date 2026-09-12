@@ -1,4 +1,6 @@
 SCHEME ?= ModernGallery
+PACKAGE_SCHEME ?= GalleryPackage-Package
+PACKAGE_DIR := LocalPackages/GalleryPackage
 DESTINATION ?= platform=iOS Simulator,name=iPhone 17 Pro
 PROJECT := ArtGallery.xcodeproj
 
@@ -19,13 +21,14 @@ build: generate
 		-scheme $(SCHEME) \
 		-destination '$(DESTINATION)'
 
-test: generate
-	xcodebuild test \
-		-project $(PROJECT) \
-		-scheme $(SCHEME) \
-		-destination '$(DESTINATION)'
+test:
+	cd $(PACKAGE_DIR) && xcodebuild test \
+		-scheme $(PACKAGE_SCHEME) \
+		-destination '$(DESTINATION)' \
+		-quiet
 
 clean:
 	rm -rf $(PROJECT)
 	rm -rf .build
+	rm -rf $(PACKAGE_DIR)/.build
 	rm -rf ~/Library/Developer/Xcode/DerivedData/ArtGallery-*
