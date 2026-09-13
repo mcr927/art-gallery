@@ -74,6 +74,7 @@ let package = Package(
             dependencies: [
                 "Interfaces",
                 "DesignSystem",
+                "TestSupport",
             ],
             swiftSettings: uiSwiftSettings
         ),
@@ -83,6 +84,7 @@ let package = Package(
             dependencies: [
                 "Interfaces",
                 "DesignSystem",
+                "TestSupport",
             ],
             swiftSettings: uiSwiftSettings
         ),
@@ -90,6 +92,16 @@ let package = Package(
         .testTarget(
             name: "APIClientTests",
             dependencies: ["APIClient"],
+            swiftSettings: coreSwiftSettings
+        ),
+        
+        .testTarget(
+            name: "TestSupportTests",
+            dependencies: [
+                "TestSupport",
+                "Interfaces",
+                "Models",
+            ],
             swiftSettings: coreSwiftSettings
         ),
     ]
