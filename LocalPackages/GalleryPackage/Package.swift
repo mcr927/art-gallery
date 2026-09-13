@@ -51,6 +51,7 @@ let package = Package(
         // Modelsに依存させない。作品セルのようなドメイン依存のViewは画面モジュール側に置く。
         .target(
             name: "DesignSystem",
+            resources: [.process("Resources")],
             swiftSettings: uiSwiftSettings
         ),
 
@@ -103,6 +104,12 @@ let package = Package(
                 "Models",
             ],
             swiftSettings: coreSwiftSettings
+        ),
+        
+        .testTarget(
+            name: "DesignSystemTests",
+            dependencies: ["DesignSystem"],
+            swiftSettings: uiSwiftSettings
         ),
     ]
 )
