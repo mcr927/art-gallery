@@ -24,6 +24,7 @@ struct ArtworkDTO: Decodable, Sendable {
     let artistTitle: String?
     let dateDisplay: String?
     let departmentTitle: String?
+    let shortDescription: String?
     let thumbnail: ThumbnailDTO?
 }
 

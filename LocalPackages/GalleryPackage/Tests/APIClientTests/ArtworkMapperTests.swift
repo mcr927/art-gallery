@@ -37,6 +37,7 @@ struct ArtworkMapperTests {
       "artist_title": "Georges Seurat",
       "date_display": "1884-86",
       "department_title": "Painting and Sculpture of Europe",
+      "short_description": "A painting.",
       "thumbnail": {
         "alt_text": "A vast park is populated by figures.",
         "width": 8330,
@@ -53,6 +54,7 @@ struct ArtworkMapperTests {
       "artist_title": "Vincent van Gogh",
       "date_display": "1889",
       "department_title": "Painting and Sculpture of Europe",
+      "short_description": "A painting.",
       "thumbnail": {
         "alt_text": "Painting of a bedroom.",
         "width": 5376,
@@ -69,6 +71,7 @@ struct ArtworkMapperTests {
       "artist_title": null,
       "date_display": null,
       "department_title": null,
+      "short_description": null,
       "thumbnail": null
     }
     """
@@ -93,6 +96,7 @@ struct ArtworkMapperTests {
         #expect(page.items.first?.artistName == "Georges Seurat")
         #expect(page.items.first?.image.identifier == "1adf2696-8489-499b-cad2-821d7fde4b33")
         #expect(page.items.first?.image.pixelWidth == 8330)
+        #expect(page.items.first?.summary == "A painting.")
     }
 
     @Test("画像を持たない作品は取り除かれ、次ページ番号には影響しない")

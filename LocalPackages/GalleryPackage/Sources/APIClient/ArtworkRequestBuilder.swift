@@ -16,6 +16,7 @@ enum ArtworkRequestBuilder {
         "artist_title",
         "date_display",
         "department_title",
+        "short_description",
         "thumbnail",
     ].joined(separator: ",")
 

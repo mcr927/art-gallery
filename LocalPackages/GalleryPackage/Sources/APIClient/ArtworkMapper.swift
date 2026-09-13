@@ -38,7 +38,7 @@ enum ArtworkMapper {
             artistName: dto.artistTitle,
             dateDisplay: dto.dateDisplay,
             departmentTitle: dto.departmentTitle,
-            summary: nil
+            summary: dto.shortDescription
         )
     }
 
