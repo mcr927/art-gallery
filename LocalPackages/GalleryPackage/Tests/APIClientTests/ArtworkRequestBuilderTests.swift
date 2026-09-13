@@ -34,7 +34,6 @@ struct ArtworkRequestBuilderTests {
         let items = try queryItems(of: request)
         #expect(items.contains(URLQueryItem(name: "page", value: "2")))
         #expect(items.contains(URLQueryItem(name: "limit", value: "24")))
-        #expect(items.contains(URLQueryItem(name: "query[exists][field]", value: "image_id")))
         #expect(items.contains(
             URLQueryItem(name: "query[term][department_title.keyword]", value: "Contemporary Art")
         ))
@@ -50,7 +49,7 @@ struct ArtworkRequestBuilderTests {
 
         let names = try Set(queryItems(of: request).map(\.name))
         #expect(!names.contains("query[term][department_title.keyword]"))
-        #expect(names.contains("query[exists][field]"))
+        #expect(names.contains("fields"))
     }
 
     @Test("空白を含む値がパーセントエンコードされる")

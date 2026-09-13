@@ -37,9 +37,6 @@ enum ArtworkRequestBuilder {
             URLQueryItem(name: "fields", value: requestedFields),
             URLQueryItem(name: "page", value: String(query.page)),
             URLQueryItem(name: "limit", value: String(query.pageSize)),
-            // 画像を持たない作品はドメインモデルに変換できないため、
-            // 可能な限りサーバー側で除外する。
-            URLQueryItem(name: "query[exists][field]", value: "image_id"),
         ]
 
         if let department = query.departmentTitle {
@@ -47,10 +44,6 @@ enum ArtworkRequestBuilder {
             items.append(
                 URLQueryItem(name: "query[term][department_title.keyword]", value: department)
             )
-        }
-
-        if query.publicDomainOnly {
-            items.append(URLQueryItem(name: "query[term][is_public_domain]", value: "true"))
         }
 
         components.queryItems = items
