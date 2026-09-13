@@ -105,5 +105,11 @@ let package = Package(
             ],
             swiftSettings: coreSwiftSettings
         ),
+        
+        .testTarget(
+            name: "DesignSystemTests",
+            dependencies: ["DesignSystem"],
+            swiftSettings: uiSwiftSettings
+        ),
     ]
 )
