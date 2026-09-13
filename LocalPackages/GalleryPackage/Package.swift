@@ -86,5 +86,11 @@ let package = Package(
             ],
             swiftSettings: uiSwiftSettings
         ),
+        
+        .testTarget(
+            name: "APIClientTests",
+            dependencies: ["APIClient"],
+            swiftSettings: coreSwiftSettings
+        ),
     ]
 )
