@@ -24,11 +24,21 @@ public struct ArtworkListScreen: View {
     /// `horizontalSizeClass` による分岐を書かずに、
     /// 画面幅と Dynamic Type の両方へ追従させるための選択。
     @ScaledMetric(relativeTo: .headline) private var cellMinWidth: CGFloat = 160
+    
+    /// 詳細画面の生成口。実体は合成ルートが注入する。
+    /// この画面は `ScreenArtworkDetail` を import せず、
+    /// 「詳細画面を作る何か」を protocol 越しにしか知らない。
+    private let detailScreenBuilder: any ArtworkDetailScreenBuilding
 
-    public init(repository: any ArtworkRepository, query: ArtworkQuery = .init()) {
+    public init(
+        repository: any ArtworkRepository,
+        query: ArtworkQuery = .init(),
+        detailScreenBuilder: any ArtworkDetailScreenBuilding
+    ) {
         _viewModel = State(
             initialValue: ArtworkListViewModel(repository: repository, query: query)
         )
+        self.detailScreenBuilder = detailScreenBuilder
     }
 
     public var body: some View {
@@ -36,6 +46,11 @@ public struct ArtworkListScreen: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(GalleryColor.background)
             .navigationTitle(ArtworkListStrings.navigationTitle)
+            // 経路の値は Artwork.ID（= Int）。今回 push する値が1種類なので成立する。
+            // 経路が増えるなら専用の Route 型を切る必要がある。
+            .navigationDestination(for: Artwork.ID.self) { artworkID in
+                detailScreenBuilder.build(artworkID: artworkID)
+            }
             .task { await viewModel.load() }
     }
 
@@ -78,7 +93,11 @@ public struct ArtworkListScreen: View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: GallerySpacing.m) {
                 ForEach(items) { artwork in
-                    ArtworkGridCell(artwork: artwork)
+                    NavigationLink(value: artwork.id) {
+                        ArtworkGridCell(artwork: artwork)
+                    }
+                    // 既定のスタイルだとセル内の文字が全てアクセントカラーになる。
+                    .buttonStyle(.plain)
                 }
             }
             .padding(GallerySpacing.m)
@@ -90,7 +109,8 @@ public struct ArtworkListScreen: View {
 #Preview("一覧") {
     NavigationStack {
         ArtworkListScreen(
-            repository: StubArtworkRepository(behavior: .success(.preview))
+            repository: StubArtworkRepository(behavior: .success(.preview)),
+            detailScreenBuilder: StubArtworkDetailScreenBuilder()
         )
     }
 }
@@ -98,7 +118,8 @@ public struct ArtworkListScreen: View {
 #Preview("一覧 / 文字拡大 AX3") {
     NavigationStack {
         ArtworkListScreen(
-            repository: StubArtworkRepository(behavior: .success(.preview))
+            repository: StubArtworkRepository(behavior: .success(.preview)),
+            detailScreenBuilder: StubArtworkDetailScreenBuilder()
         )
     }
     .environment(\.dynamicTypeSize, .accessibility3)
@@ -107,7 +128,8 @@ public struct ArtworkListScreen: View {
 #Preview("空") {
     NavigationStack {
         ArtworkListScreen(
-            repository: StubArtworkRepository(behavior: .success(.empty))
+            repository: StubArtworkRepository(behavior: .success(.empty)),
+            detailScreenBuilder: StubArtworkDetailScreenBuilder()
         )
     }
 }
@@ -115,7 +137,8 @@ public struct ArtworkListScreen: View {
 #Preview("エラー") {
     NavigationStack {
         ArtworkListScreen(
-            repository: StubArtworkRepository(behavior: .failure(.offline))
+            repository: StubArtworkRepository(behavior: .failure(.offline)),
+            detailScreenBuilder: StubArtworkDetailScreenBuilder()
         )
     }
 }
@@ -123,7 +146,8 @@ public struct ArtworkListScreen: View {
 #Preview("ローディング") {
     NavigationStack {
         ArtworkListScreen(
-            repository: StubArtworkRepository(behavior: .pending)
+            repository: StubArtworkRepository(behavior: .pending),
+            detailScreenBuilder: StubArtworkDetailScreenBuilder()
         )
     }
 }
