@@ -1,11 +1,3 @@
-//
-//  ArtworkThumbnail.swift
-//  GalleryPackage
-//
-//  Created by タカショー on 2026/09/14.
-//
-
-
 import DesignSystem
 import Models
 import SwiftUI

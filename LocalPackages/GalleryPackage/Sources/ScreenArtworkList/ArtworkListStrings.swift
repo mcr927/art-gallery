@@ -1,11 +1,3 @@
-//
-//  ArtworkListStrings.swift
-//  GalleryPackage
-//
-//  Created by タカショー on 2026/09/14.
-//
-
-
 import Models
 
 /// 一覧画面の表示文言。

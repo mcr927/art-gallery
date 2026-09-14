@@ -1,11 +1,3 @@
-//
-//  ArtworkListViewModel.swift
-//  GalleryPackage
-//
-//  Created by タカショー on 2026/09/14.
-//
-
-
 import Interfaces
 import Models
 import Observation

@@ -1,11 +1,3 @@
-//
-//  GallerySpacing.swift
-//  GalleryPackage
-//
-//  Created by タカショー on 2026/09/14.
-//
-
-
 import CoreGraphics
 
 /// 余白の基準値。4ptグリッド。
