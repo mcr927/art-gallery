@@ -121,5 +121,15 @@ let package = Package(
             ],
             swiftSettings: uiSwiftSettings
         ),
+        
+        .testTarget(
+            name: "ScreenArtworkDetailTests",
+            dependencies: [
+                "ScreenArtworkDetail",
+                "TestSupport",
+                "Models",
+            ],
+            swiftSettings: uiSwiftSettings
+        ),
     ]
 )
