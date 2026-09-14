@@ -24,7 +24,7 @@ build: generate
 test:
 	cd $(PACKAGE_DIR) && xcodebuild test \
 		-scheme $(PACKAGE_SCHEME) \
-		-destination '$(DESTINATION)' \
+		-destination '$(DESTINATION)'
 
 clean:
 	rm -rf $(PROJECT)
