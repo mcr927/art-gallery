@@ -25,7 +25,6 @@ test:
 	cd $(PACKAGE_DIR) && xcodebuild test \
 		-scheme $(PACKAGE_SCHEME) \
 		-destination '$(DESTINATION)' \
-		-quiet
 
 clean:
 	rm -rf $(PROJECT)
