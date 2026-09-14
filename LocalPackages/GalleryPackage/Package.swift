@@ -111,5 +111,15 @@ let package = Package(
             dependencies: ["DesignSystem"],
             swiftSettings: uiSwiftSettings
         ),
+        
+        .testTarget(
+            name: "ScreenArtworkListTests",
+            dependencies: [
+                "ScreenArtworkList",
+                "TestSupport",
+                "Models",
+            ],
+            swiftSettings: uiSwiftSettings
+        ),
     ]
 )
